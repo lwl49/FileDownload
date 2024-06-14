@@ -21,15 +21,14 @@
  
 ###旧版 gradle 4.+<br>
 	
-    repositories {
-   	 mavenCentral()
-  	  maven { url 'https://jitpack.io' }
-    }
-    
+	repositories {
+   	 	mavenCentral()
+  	  	maven { url 'https://jitpack.io' }
+      }
 	allprojects {
-    		repositories {
-  		  	mavenCentral()
-  		 	 maven { url 'https://jitpack.io' } 
+		repositories {
+			mavenCentral()
+			maven { url 'https://jitpack.io' } 
 		}
 	}
 
