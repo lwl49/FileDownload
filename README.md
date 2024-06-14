@@ -20,6 +20,7 @@
 	}
  
 ###旧版 gradle 4.+<br>
+	
 	buildscript {
 		repositories {
 	   	 	mavenCentral()
