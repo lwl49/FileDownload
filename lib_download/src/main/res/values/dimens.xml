@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="lib_download_main_padding">16dp</dimen>
+
+
+
+    <dimen name="lib_download_txt_h2">16sp</dimen>
+    <dimen name="lib_download_txt_h3">14sp</dimen>
+
+    <dimen name="lib_download_sp_btn_radius">6dp</dimen>
+
+</resources>

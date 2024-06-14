@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="lib_download_white">#fff</color>
+    <color name="lib_download_font_black">#191919</color>
+    <color name="lib_download_font_gray">#999999</color>
+
+    <color name="lib_download_theme_blue_99">#99409EFF</color>
+    <color name="lib_download_theme_main_50">#7D409eff</color>
+    <color name="lib_download_theme_main">#2B91FF</color>
+</resources>
