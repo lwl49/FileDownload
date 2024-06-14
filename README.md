@@ -11,31 +11,30 @@
 
 ###1.对于新版 gradle 插件的 7.0+<br>
 	dependencyResolutionManagement {<br>
-	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)<br>
-	repositories {<br>
-	mavenCentral()<br>
-	maven { url 'https://jitpack.io' }<br>
-	}<br>
+		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)<br>
+		repositories {<br>
+			mavenCentral()<br>
+			maven { url 'https://jitpack.io' }<br>
+		}<br>
 	}<br>
  
 ###旧版 gradle 4.+<br>
     repositories {<br>
-    mavenCentral()<br>
-    maven { url 'https://jitpack.io' }<br>
+   	 mavenCentral()<br>
+  	  maven { url 'https://jitpack.io' }<br>
     }<br>
+    
     allprojects {
-    repositories {
-    mavenCentral()
-    maven { url 'https://jitpack.io' } 
-    }
+    	repositories {
+  		  mavenCentral()
+  		  maven { url 'https://jitpack.io' } 
+   	 }
     }
 
 ###2.在使用的module 中<br>
-dependencies {<br>
-implementation 'com.github.lwl49:file_down_git:xxx'  xxx 具体版本号<br>
-}<br>
-
-
+	dependencies {<br>
+		implementation 'com.github.lwl49:file_down_git:xxx'  xxx 具体版本号<br>
+	}<br>
 
 #### 使用说明
 1.文件下载 目前 支持图片（jpg），视频（MP4）,其他文档（office），其中图片，视频 保存在共享目录PICTURE 中  其他文件保存在共享目录DOWNLOAD 中
