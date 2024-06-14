@@ -20,10 +20,11 @@
 	}
  
 ###旧版 gradle 4.+<br>
-	
-	repositories {
-   	 	mavenCentral()
-  	  	maven { url 'https://jitpack.io' }
+	buildscript {
+		repositories {
+	   	 	mavenCentral()
+	  	  	maven { url 'https://jitpack.io' }
+	      }
       }
 	allprojects {
 		repositories {
