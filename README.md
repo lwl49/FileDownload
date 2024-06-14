@@ -11,29 +11,29 @@
 
 ###1.对于新版 gradle 插件的 7.0+<br>
 	dependencyResolutionManagement {<br>
-		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)<br>
-		repositories {<br>
-			mavenCentral()<br>
-			maven { url 'https://jitpack.io' }<br>
-		}<br>
+	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)<br>
+	repositories {<br>
+	mavenCentral()<br>
+	maven { url 'https://jitpack.io' }<br>
+	}<br>
 	}<br>
  
 ###旧版 gradle 4.+<br>
-	repositories {<br>
-        mavenCentral()<br>
-        maven { url 'https://jitpack.io' }<br>
-}<br>
-	allprojects {
+    repositories {<br>
+    mavenCentral()<br>
+    maven { url 'https://jitpack.io' }<br>
+    }<br>
+    allprojects {
     repositories {
-        mavenCentral()
-        maven { url 'https://jitpack.io' } 
+    mavenCentral()
+    maven { url 'https://jitpack.io' } 
     }
-}
+    }
 
 ###2.在使用的module 中<br>
- 	 dependencies {<br>
-	        implementation 'com.github.lwl49:file_down_git:xxx'  xxx 具体版本号<br>
-	}<br>
+dependencies {<br>
+implementation 'com.github.lwl49:file_down_git:xxx'  xxx 具体版本号<br>
+}<br>
 
 
 
