@@ -1,15 +1,15 @@
 # FileDownload
 
 #### 介绍
-1.使用系统DownloadManager 下载文件 并保存到共享目录
-2.本项目集成了新版蒲公英内侧分发系统，无需SDK  直接访问蒲公英后台接口 ，查询是否有app更新
+1.使用系统DownloadManager 下载文件 并保存到共享目录<br>
+2.本项目集成了新版蒲公英内侧分发系统，无需SDK  直接访问蒲公英后台接口 ，查询是否有app更新<br>
 #### 软件架构
 软件架构说明
 
 
 #### 安装教程
 
-1.对于新版 gradle 插件的 7.0+
+**1.对于新版 gradle 插件的 7.0+<br>
   dependencyResolutionManagement {
 		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
 		repositories {
@@ -17,7 +17,7 @@
 			maven { url 'https://jitpack.io' }
 		}
 	}
-旧版 gradle 4.+
+**旧版 gradle 4.+<br>
    repositories {
         mavenCentral()
         maven { url 'https://jitpack.io' }
