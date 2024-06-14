@@ -33,9 +33,10 @@
 	}
 
 ###2.在使用的module 中<br>
-	dependencies {<br>
+
+	dependencies {
 		implementation 'com.github.lwl49:file_down_git:xxx'  xxx 具体版本号<br>
-	}<br>
+	}
 
 #### 使用说明
 1.文件下载 目前 支持图片（jpg），视频（MP4）,其他文档（office），其中图片，视频 保存在共享目录PICTURE 中  其他文件保存在共享目录DOWNLOAD 中
