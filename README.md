@@ -10,6 +10,7 @@
 #### 安装教程
 
 ###1.对于新版 gradle 插件的 7.0+<br>
+	
 	dependencyResolutionManagement {<br>
 		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)<br>
 		repositories {<br>
@@ -19,6 +20,7 @@
 	}<br>
  
 ###旧版 gradle 4.+<br>
+	
     repositories {<br>
    	 mavenCentral()<br>
   	  maven { url 'https://jitpack.io' }<br>
