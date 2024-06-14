@@ -1,7 +1,7 @@
 # FileDownload
 
 #### 介绍
-1.使用系统DownloadManager 下载文件 并保存到共享目录<br>[空格]本项目不支持断点，没有service 只在activity 生命周期内有用，仅做图片，视频 和 office 文件的下载 ，不要离开 作用的 activit，<br>
+1.使用系统DownloadManager 下载文件 并保存到共享目录<br>  本项目不支持断点，没有service 只在activity 生命周期内有用，仅做图片，视频 和 office 文件的下载 ，不要离开 作用的 activit，<br>
 2.本项目集成了新版蒲公英内侧分发系统，无需SDK  直接访问蒲公英后台接口 ，查询是否有app更新<br>
 
 #### 软件架构
