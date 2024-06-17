@@ -66,9 +66,10 @@
 	* @param apiKey  用户身份 api_key
 	* @param appKey  应用 app_key
 	* @param showToast 是否需要弹出新版提示
+ 	* @param loadingInterface 结果回调
 	*/
 	
-	 UpdateAppUtils.updateAPP(activity,apiKey,appKey,showToast);
+	 UpdateAppUtils.updateAPP(activity,apiKey,appKey,showToast, LoadingInterface loadingInterface);
 
 
 
