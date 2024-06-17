@@ -38,7 +38,7 @@
 ###2.在使用的module 中<br>
 
 	dependencies {
-		implementation 'com.github.lwl49:file_down_git:xxx'  xxx 具体版本号<br>
+		implementation 'com.github.lwl49:FileDownload:xxx'  xxx 具体版本号<br>
 	}
 
 #### 使用说明
@@ -55,6 +55,7 @@
 	
 
 2.使用新版的蒲公英内侧分发方式<br>
+只需要在蒲公英官网上面注册好获取apikey 和 appkey 就行，https://www.pgyer.com/app/distribution<br>
 
 	/**
 	* 使用4.+以上版本
