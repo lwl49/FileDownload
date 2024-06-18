@@ -58,7 +58,11 @@ public class UpdateAppUtils {
                     @Override
                     public void result(UpdateChecker.UpdateInfo updateInfo) {
                         if(paramBuild.loadingInterface!=null){
-                            paramBuild.loadingInterface.success(updateInfo);
+                            paramBuild.activity.runOnUiThread(new Runnable() {
+                                public void run() {
+                                    paramBuild.loadingInterface.success(updateInfo);
+                                }
+                            });
                         }
                         ZLog.log(UpdateAppUtils.class, TAG, "updateInfo = " + updateInfo.toString());
                         int code = FileUtils.getAppVersionCode(paramBuild.activity);
