@@ -61,7 +61,7 @@
 检查更新<br>
 @param activity 用于弹窗使用，权限使用<br>
 @param showToast 显示检查消息<br>
-@param useCostDialog 是否自定义升级弹窗  必须传递 loadingInterface<br>
+@param useCostDialog 是否自定义升级弹窗  如果为 true 必须传递 loadingInterface<br>
 @param loadingInterface 结果返回<br>
 
 	public static void inspectUpdate(Activity activity, boolean showToast,boolean useCostDialog, UpdateAppUtils.LoadingInterface loadingInterface){
