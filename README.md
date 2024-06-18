@@ -56,6 +56,7 @@
 
 2.使用新版的蒲公英内侧分发方式<br>
 只需要在蒲公英官网上面注册好获取apikey 和 appkey 就行，https://www.pgyer.com/app/distribution<br>
+可以自己封装一个方法 inspectUpdate() 组合参数  只需要  UpdateAppUtils.updateAPP(UpdateParamBuild paramBuild) 就可以检查更新了
 
 /**
  *
@@ -64,8 +65,10 @@
  *   @param showToast 显示检查消息
  *   @param useCostDialog 是否自定义升级弹窗  必须传递 loadingInterface
  *   @param loadingInterface 结果返回
- * */
  * 
+ * */
+
+
 	public static void inspectUpdate(Activity activity, boolean showToast,boolean useCostDialog, UpdateAppUtils.LoadingInterface loadingInterface){
        
 	        UpdateParamBuild paramBuild = new UpdateParamBuild();
