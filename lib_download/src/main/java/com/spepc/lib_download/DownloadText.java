@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.widget.Toast;
 
 import com.spepc.updateapp.UpdateAppUtils;
+import com.spepc.updateapp.UpdateParamBuild;
 
 /**
  * @Author lwl
@@ -37,7 +38,8 @@ public class DownloadText {
                 .startDMDownLoad(imgPath, System.currentTimeMillis() + "_fileName.jpg");
     }
 
-    public static void upgrade(Activity activity,String apiKey,String appKey,boolean showToast){
-        UpdateAppUtils.updateAPP(activity,apiKey,appKey,showToast,null);
+    public static void upgrade(UpdateParamBuild paramBuild) {
+
+        UpdateAppUtils.updateAPP(paramBuild);
     }
 }
