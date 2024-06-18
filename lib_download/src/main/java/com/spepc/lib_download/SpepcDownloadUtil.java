@@ -230,6 +230,7 @@ public class SpepcDownloadUtil {
             if (modelBean.name.endsWith(".apk")) {
                 // 安装apk
                 FileUtils.installApk(context, filePath);
+                return;
             } else if (modelBean.name.endsWith(".jpg")) {
                 //保存图片文件
                 outFilePath = MediaStoreInsertHelper.insertImage(context, StringUtils.isNotEmpty(packName) ? packName : context.getPackageName(), new File(filePath));
