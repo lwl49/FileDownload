@@ -57,19 +57,26 @@
 2.使用新版的蒲公英内侧分发方式<br>
 只需要在蒲公英官网上面注册好获取apikey 和 appkey 就行，https://www.pgyer.com/app/distribution<br>
 
-	/**
-	* 使用4.+以上版本
-	* CommonLogUtils.e("xxx - checkSoftModel = "+checkSoftModel);
-	* CommonLogUtils.e("xxx - checkSoftModel = onFail = "+s);
-	* 蒲公英升级  需要蒲公英SDK
-	* @param activity
-	* @param apiKey  用户身份 api_key
-	* @param appKey  应用 app_key
-	* @param showToast 是否需要弹出新版提示
- 	* @param loadingInterface 结果回调
-	*/
-	
-	 UpdateAppUtils.updateAPP(activity,apiKey,appKey,showToast, LoadingInterface loadingInterface);
+/**
+ *
+ *   检查更新
+ *   @param activity 用于弹窗使用，权限使用
+ *   @param showToast 显示检查消息
+ *   @param useCostDialog 是否自定义升级弹窗  必须传递 loadingInterface
+ *   @param loadingInterface 结果返回
+ * */
+ * 
+	public static void inspectUpdate(Activity activity, boolean showToast,boolean useCostDialog, UpdateAppUtils.LoadingInterface loadingInterface){
+       
+	        UpdateParamBuild paramBuild = new UpdateParamBuild();
+	        paramBuild.activity = activity;
+	        paramBuild.apiKey = apiKey;
+	        paramBuild.appKey = appKey;
+	        paramBuild.showToast = showToast;
+	        paramBuild.useCostDialog = useCostDialog;
+	        paramBuild.loadingInterface = loadingInterface;
+	        UpdateAppUtils.updateAPP(paramBuild);
+	    }
 
 
 
