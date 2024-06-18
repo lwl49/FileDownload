@@ -28,14 +28,26 @@ public class UpdateAppUtils {
      * CommonLogUtils.e("xxx - checkSoftModel = onFail = "+s);
      * 蒲公英升级  需要蒲公英SDK
      * @param paramBuild 参数  ;
-     *                   activity
-     *                   apiKey  用户身份 api_key;
-     *                   appKey  应用 app_key;
+     *                   activity  必填
+     *                   apiKey  用户身份 api_key; 必填
+     *                   appKey  应用 app_key;必填
      *                   showToast 是否需要弹出新版提示;
+     *                   useCostDialog 默认使用sdk内部弹窗;
      *                   loadingInterface 检查开始，结束，便于外部增加 加载框等操作
      */
     public static void updateAPP(UpdateParamBuild paramBuild) {
         if(paramBuild==null){
+            return;
+        }
+        if(paramBuild.activity==null){
+            return;
+        }
+        if(StringUtils.isNotEmpty(paramBuild.apiKey)){
+            Toast.makeText(paramBuild.activity,"缺少apiKey",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(StringUtils.isNotEmpty(paramBuild.appKey)){
+            Toast.makeText(paramBuild.activity,"缺少appKey",Toast.LENGTH_SHORT).show();
             return;
         }
         if(paramBuild.loadingInterface!=null){
