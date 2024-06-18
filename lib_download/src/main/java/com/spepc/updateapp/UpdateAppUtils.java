@@ -42,11 +42,11 @@ public class UpdateAppUtils {
         if(paramBuild.activity==null){
             return;
         }
-        if(StringUtils.isNotEmpty(paramBuild.apiKey)){
+        if(StringUtils.isNullOrEmpty(paramBuild.apiKey)){
             Toast.makeText(paramBuild.activity,"缺少apiKey",Toast.LENGTH_SHORT).show();
             return;
         }
-        if(StringUtils.isNotEmpty(paramBuild.appKey)){
+        if(StringUtils.isNullOrEmpty(paramBuild.appKey)){
             Toast.makeText(paramBuild.activity,"缺少appKey",Toast.LENGTH_SHORT).show();
             return;
         }
