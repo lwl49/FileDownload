@@ -64,7 +64,7 @@
 @param useCostDialog 是否自定义升级弹窗  必须传递 loadingInterface<br>
 @param loadingInterface 结果返回<br>
 
-public static void inspectUpdate(Activity activity, boolean showToast,boolean useCostDialog, UpdateAppUtils.LoadingInterface loadingInterface){
+	public static void inspectUpdate(Activity activity, boolean showToast,boolean useCostDialog, UpdateAppUtils.LoadingInterface loadingInterface){
        
 	        UpdateParamBuild paramBuild = new UpdateParamBuild();
 	        paramBuild.activity = activity;
