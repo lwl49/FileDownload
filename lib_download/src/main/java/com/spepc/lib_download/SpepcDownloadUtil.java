@@ -273,7 +273,7 @@ public class SpepcDownloadUtil {
      * @param fileName 保存的文件名称
      */
     public static void saveImgFromGlide(Activity activity, String url,String fileName) {
-        url = "http://192.168.1.33:9000/spepc-maintenance-dfw-test/2024/04/337bfddc870f466e849f9bb450273cd0.jpeg";
+//        url = "http://192.168.1.33:9000/spepc-maintenance-dfw-test/2024/04/337bfddc870f466e849f9bb450273cd0.jpeg";
 //        url = "http://192.168.1.33:9000/spepc-maintenance-dfw-test/2023/10/5bf23fddb83744ca9d851444c47abf40.jpg";
         Glide.with(activity)
                 .asBitmap() // 指定加载格式为Bitmap
