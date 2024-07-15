@@ -126,4 +126,5 @@ dependencies {
 //    implementation 'com.pgyer:analytics:4.3.2'  // 蒲公英 app分发  暂时用于app 更新
     implementation ('com.lxj:xpopup:2.2.23' ) //弹窗dialog
     implementation ('androidx.constraintlayout:constraintlayout:2.1.4')
+    implementation ('com.github.bumptech.glide:glide:4.11.0')
 }

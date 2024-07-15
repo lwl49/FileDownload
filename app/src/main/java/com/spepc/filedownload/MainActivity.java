@@ -15,6 +15,7 @@ import com.permissionx.guolindev.callback.RequestCallback;
 import com.permissionx.guolindev.request.ExplainScope;
 import com.spepc.lib_download.DownloadText;
 import com.spepc.filedownload.R;
+import com.spepc.lib_download.SpepcDownloadUtil;
 import com.spepc.updateapp.UpdateAppUtils;
 import com.spepc.updateapp.UpdateChecker;
 import com.spepc.updateapp.UpdateParamBuild;
@@ -53,22 +54,24 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v)
             {
 //                DownloadText.download(getApplicationContext());
-                inspectUpdate(ins, true, false, new UpdateAppUtils.LoadingInterface() {
-                    @Override
-                    public void startLoading() {
+//                inspectUpdate(ins, true, false, new UpdateAppUtils.LoadingInterface() {
+//                    @Override
+//                    public void startLoading() {
+//
+//                    }
+//
+//                    @Override
+//                    public void success(UpdateChecker.UpdateInfo updateInfo) {
+//
+//                    }
+//
+//                    @Override
+//                    public void error(String message) {
+//
+//                    }
+//                });
 
-                    }
-
-                    @Override
-                    public void success(UpdateChecker.UpdateInfo updateInfo) {
-
-                    }
-
-                    @Override
-                    public void error(String message) {
-
-                    }
-                });
+                SpepcDownloadUtil.saveImgFromGlide(ins,"","img_"+System.currentTimeMillis()+".jpg");
             }
         });
 

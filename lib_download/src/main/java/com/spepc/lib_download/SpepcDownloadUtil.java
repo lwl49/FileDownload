@@ -1,10 +1,13 @@
 package com.spepc.lib_download;
 
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
@@ -14,16 +17,23 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.gson.Gson;
 import com.spepc.utils.FileUtils;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @Author lwl
@@ -120,9 +130,9 @@ public class SpepcDownloadUtil {
     };
 
     /**
-     * @param url 文件下载地址
+     * @param url      文件下载地址
      * @param fileName 文件名称 包含后缀名
-     * 使用 系统下载器 下载 图片
+     *                 使用 系统下载器 下载 图片
      */
     public void startDMDownLoad(String url, String fileName) {
 
@@ -255,6 +265,71 @@ public class SpepcDownloadUtil {
             }
 
         }
+    }
+
+    /**
+     * 使用glide 下载图片
+     * @param url 下载地址
+     * @param fileName 保存的文件名称
+     */
+    public static void saveImgFromGlide(Activity activity, String url,String fileName) {
+        url = "http://192.168.1.33:9000/spepc-maintenance-dfw-test/2024/04/337bfddc870f466e849f9bb450273cd0.jpeg";
+//        url = "http://192.168.1.33:9000/spepc-maintenance-dfw-test/2023/10/5bf23fddb83744ca9d851444c47abf40.jpg";
+        Glide.with(activity)
+                .asBitmap() // 指定加载格式为Bitmap
+                .load(url) // 替换为你的图片URL或资源ID
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        // 这里你可以获取到Bitmap对象，并进行保存或其他处理
+                        // 例如保存图片到文件系统
+                        File file = new File(activity.getCacheDir(), fileName);
+                        FileOutputStream out = null;
+                        try {
+                            out = new FileOutputStream(file);
+                            resource.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                            out.flush();
+                            out.close();
+
+                            String filePath = MediaStoreInsertHelper.insertImage(activity, activity.getPackageName(), file);
+                            if(file.exists()){
+                                file.delete();
+                            }
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (StringUtils.isNotEmpty(filePath)) {
+                                        Toast.makeText(activity, "已保存图片到系统相册", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(activity, "保存失败", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        } catch (Exception e) {
+//                            e.printStackTrace();
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(activity, "保存失败", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                        }
+                    }
+
+                    @Override
+                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                        super.onLoadFailed(errorDrawable);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(activity, "保存失败", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+
+
     }
 
 

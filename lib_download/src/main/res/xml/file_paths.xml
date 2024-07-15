@@ -2,19 +2,19 @@
 <paths xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="ResourceName">
     <external-path
-        name="root"
+        name="external_path"
         path="." />
     <files-path
-        name="root"
+        name="files_path"
         path="." />
     <cache-path
-        name="root"
+        name="cache_path"
         path="." />
     <external-cache-path
-        name="root"
+        name="external_cache_path"
         path="." />
     <external-files-path
-        name="root"
+        name="external_files_path"
         path="." />
     <root-path
         name="root_path"

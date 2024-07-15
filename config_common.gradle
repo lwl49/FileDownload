@@ -1,0 +1,186 @@
+ext {
+    //android =[]
+    compileSdkVersion= 30
+    buildToolsVersion= '30.0.3'
+    applicationId= 'com.spepc.trackwb'
+    minSdkVersion= 26
+    targetSdk= 30
+
+    //java version
+    sourceCompatibility= 1.8
+    targetCompatibility= 1.8
+
+    //channel version
+    testVersion = '1.0.0.1_test'
+    testCode = 1
+
+    devVersion = '1.0.0._dev'
+    devCode = 1
+
+    prodVersion = '1.0.0.1_prod'
+    prodCode = 1
+
+
+    //androidx
+    appcompat = 'androidx.appcompat:appcompat:1.1.0'
+    annotation = 'androidx.annotation:annotation:1.1.0'
+    constraintlayout = 'androidx.constraintlayout:constraintlayout:1.1.3'
+    legacy = 'androidx.legacy:legacy-support-v4:1.0.0'
+    gridlayout = 'androidx.gridlayout:gridlayout:1.0.0'
+    navigation_fragment = 'androidx.navigation:navigation-fragment:2.0.0'
+    navigation_ui = 'androidx.navigation:navigation-ui:2.0.0'
+    junit = 'androidx.test.ext:junit:1.1.1'
+    espresso = 'androidx.test.espresso:espresso-core:3.2.0'
+    viewpager2 = 'androidx.viewpager2:viewpager2:1.0.0'
+    camerax                  = 'androidx.camera:camera-camera2:1.0.1' // 使用camerax 自定义拍视频 视频压缩没实现
+    camerax_lifecycle        = 'androidx.camera:camera-lifecycle:1.0.1' // 使用camerax 自定义拍视频
+    camerax_core             = 'androidx.camera:camera-core:1.0.1' // 使用camerax 自定义拍视频
+    camera_view              = 'androidx.camera:camera-view:1.0.0-alpha19' // 使用camerax 自定义拍视频
+
+    //依赖第三方配置 dependencies = []
+    //java
+    commons_lang             = 'org.apache.commons:commons-lang3:3.5'   // 公共基础包
+    lombok                   = 'org.projectlombok:lombok:1.16.8'
+    annotation               = 'org.glassfish:javax.annotation:10.0-b28'
+    pinyin4j                 = 'com.belerweb:pinyin4j:2.5.1'//中文转拼音
+    zxing                    = 'com.king.zxing:zxing-lite:1.1.7-androidx' //扫码
+
+    //rxjava
+    rxjava                   = 'io.reactivex.rxjava2:rxjava:2.2.9'
+    rxandroid                ='io.reactivex.rxjava2:rxandroid:2.1.0'
+
+    //rx系列与View生命周期同步
+    rxlifecycle              = 'com.trello.rxlifecycle2:rxlifecycle:2.2.2'
+    rxlifecycle_android      = 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.2'
+    rxlifecycle_components   = 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.2'
+
+    //rxbinding
+    rxbinding                = 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
+    rxbinding_support_v4     = 'com.jakewharton.rxbinding2:rxbinding-support-v4:2.1.1'
+    rxbinding_appcompat_v7   = 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.1.1'
+
+    //network
+    retrofit                 = 'com.squareup.retrofit2:retrofit:2.6.2'
+    converter_gson           = 'com.squareup.retrofit2:converter-gson:2.6.2'
+    adapter_rxjava           = 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+
+    LoggingInterceptor       = 'com.github.ihsanbal:LoggingInterceptor:3.1.0-rc5'
+
+    //glide图片加载
+    glide                    = 'com.github.bumptech.glide:glide:4.11.0'
+    glide_compiler           = 'com.github.bumptech.glide:compiler:4.11.0'
+    glide_okhttp3            = 'com.github.bumptech.glide:okhttp3-integration:4.6.1'
+
+    //json解析
+    gson                     = 'com.google.code.gson:gson:2.8.6'
+
+    //Google AAC
+    lifecycle_extensions     = 'android.arch.lifecycle:extensions:2.2.0'  // 监听生命周期
+    lifecycle_compiler       = 'android.arch.lifecycle:compiler:2.2.0'
+
+    //阿里路由框架
+    arouter_api              = 'com.alibaba:arouter-api:1.5.2'
+    arouter_compiler         = 'com.alibaba:arouter-compiler:1.5.2'
+
+    //依赖注入
+    dagger                   = 'com.google.dagger:dagger:2.25.2'
+    dagger_compiler          = 'com.google.dagger:dagger-compiler:2.25.2'
+
+    //UI库
+    material                 = 'com.google.android.material:material:1.1.0'
+    systembartint            = 'com.readystatesoftware.systembartint:systembartint:1.0.3'  // 设置状态栏沉浸式
+
+    //数据库
+    room_runtime             = 'android.arch.persistence.room:runtime:2.2.5'
+    room_rxjava2             = 'android.arch.persistence.room:rxjava2:2.2.5'
+    room_compiler            = 'android.arch.persistence.room:compiler:2.2.5'
+
+    //mock数据
+    mock                     = 'com.github.mirrajabi:okhttp-json-mock:3.0'
+
+    //bugly
+    bugly_multidex           = 'com.android.support:multidex:1.0.3' // 多dex配置
+    bugly_crashreport_upgrade= 'com.tencent.bugly:crashreport_upgrade:1.4.2'
+//            bugly-tinker             : 'com.tencent.tinker:tinker-android-lib:1.9.14'
+    bugly_nativecrashreport  = 'com.tencent.bugly:nativecrashreport:3.7.1'
+    bugly_crashreport        = 'com.tencent.bugly:crashreport:latest.release'
+    shiply                   = 'com.tencent.shiply:upgrade:2.0.0-RC01'
+
+    //高德地图
+//            amap-map                 : 'com.amap.api:3dmap:latest.integration'
+    amap_navi                = 'com.amap.api:navi-3dmap:8.1.0_3dmap8.1.0'
+    amap_search              = 'com.amap.api:search:8.1.0'
+    amap_location            = 'com.amap.api:location:5.6.0'
+
+    //极光推送
+    jiguang_jpush            = 'cn.jiguang.sdk:jpush:4.0.0'
+    jiguang_jcore            = 'cn.jiguang.sdk:jcore:2.7.2'
+    jiguang_jmessage         = 'cn.jiguang.sdk:jmessage:2.9.2'
+
+    /*萤石SDK核心模块，必须依赖*/
+    ezviz_sdk                = 'com.ezviz.sdk:ezviz-sdk:4.15.1'
+
+    /*萤石云播放工具*/
+    ezviz_ezuikit            = 'com.ezviz.sdk:ezuikit:2.2.1'
+
+    /*视频通话模块，按需使用*/
+    ezviz_sdk_videotalk      = 'com.ezviz.sdk:videotalk:1.1.0'
+
+    /*码流获取模块，按需使用*/
+    ezviz_sdk_streamctrl     = 'com.ezviz.sdk:streamctrl:1.1.1'
+    //万能适配器
+    BaseRecycler             = 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.6'
+
+    // 下拉刷新
+    refresh_layout           = 'com.scwang.smart:refresh-layout-kernel:2.0.3'     //核心必须依赖
+    refresh_header           = 'com.scwang.smart:refresh-header-classics:2.0.3'   //经典刷新头
+//            refresh-footer           : 'com.scwang.smart:refresh-footer-classics:2.0.3'    //经典加载'
+
+    xpopup                   = 'com.lxj:xpopup:2.2.23'   //POP 弹窗
+    qqopensdk                = 'com.tencent.tauth:qqopensdk:3.52.0'  //QQ登录
+    wechat                   = 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+' //微信登录
+    mmkv                     = 'com.tencent:mmkv-static:1.2.7' // 本地序列工具，速度远超 sharepreferences
+    banner                   = 'com.youth.banner:banner:2.1.0' // 图片轮播
+    andPermission            = 'com.yanzhenjie:permission:2.0.3'  // AndPermission
+    permissionx              = 'com.guolindev.permissionx:permissionx:1.5.1'  // permissionx
+    album                    = 'com.github.HuanTanSheng:EasyPhotos:3.1.3' // 相册选择库
+
+    luban                    = 'top.zibin:Luban:1.1.8' // 图片压缩
+    rxffmeg                  = 'com.github.microshow:RxFFmpeg:4.9.0-lite' // 视频压缩压缩
+//            silicompressor          : 'com.iceteck.silicompressorr:silicompressor:2.2.3' // 视频压缩
+//            mp4parser                : 'org.mp4parser:isoparser:1.9.27' // 视频压缩
+
+    eventbus                 = 'org.greenrobot:eventbus:3.2.0' //
+    photoView                = 'com.github.chrisbanes:PhotoView:2.3.0' //  xpopup 下的photo滑动有冲突
+    pdfViewer                = 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1' //  pdf阅读
+    AndroidAutoSize          = 'com.github.JessYanCoding:AndroidAutoSize:v1.2.1' // 屏幕适配
+    //umtongji
+    umsdk_common             = 'com.umeng.umsdk:common:9.4.4'// 必选
+    umsdk_asms               = 'com.umeng.umsdk:asms:1.4.1'// 必选
+    umsdk_apm                = 'com.umeng.umsdk:apm:1.5.2' // 错误分析升级为独立SDK，看crash数据请一定集成，可选
+    calendarview             = 'com.haibin:calendarview:3.7.1'
+    flexbox                  = 'com.google.android:flexbox:1.0.0'
+
+    pictureselector          = 'io.github.lucksiege:pictureselector:v3.11.1'
+    pictureselector_compress = 'io.github.lucksiege:compress:v3.11.1'
+    pictureselector_ucrop    = 'io.github.lucksiege:ucrop:v3.11.1'
+    pictureselector_camerax  = 'io.github.lucksiege:camerax:v3.11.1'
+    pgyer                    = 'com.pgyer:analytics:4.3.2'//蒲公英升级最好写上具体依赖的版本号
+    agentweb                 = 'com.github.Justson.AgentWeb:agentweb-core:v5.0.6-androidx'// https://github.com/Justson/AgentWeb  替换原生webview
+    PickerView               = 'com.contrarywind:Android-PickerView:4.1.9'// 日期选择器
+    AndroidPickerCommon      = 'com.github.gzu-liyujiang.AndroidPicker:Common:4.1.12'// 日期选择器
+    AndroidPicker            = 'com.github.gzu-liyujiang.AndroidPicker:WheelPicker:4.1.12'// 日期选择器
+    AndroidCalendarPicker    = 'com.github.gzu-liyujiang.AndroidPicker:CalendarPicker:4.1.12'// 日历选择器
+    ConsecutiveScroller      = 'com.github.donkingliang:ConsecutiveScroller:4.6.3'// 滑动控件
+    SuperTextView            = 'com.github.lygttpod:SuperTextView:2.4.6'// 自定义textview
+    SCardView                = 'io.github.meetsl:SCardView:1.2'// 阴影
+    SwipeDelMenuLayout       = 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.2.1'// 嵌套recycleview 左滑删除
+    SusionViewer             = 'com.susion:image-viewer:1.0.2'//图片吞拽退出 类似朋友圈图片   https://github.com/SusionSuc/DraggableImageViewer
+    FileDownload             = 'com.github.lwl49:FileDownload:1.0.7'// 包含文件下载，蒲公英升级
+
+//            arcgis                   : 'com.esri.arcgisruntime:arcgis-android:100.14.0'// 天地图底图
+//            wshunliMap               : 'com.wshunli.map:arcgis-android-tianditu:2.2.1'// 基于天地图 https://github.com/wshunli/arcgis-android-tianditu
+
+}
+
+

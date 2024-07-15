@@ -28,3 +28,4 @@ dependencyResolutionManagement {
 rootProject.name = "SpFileDownload"
 include ':app'
 include ':lib_download'
+apply from: "config_common.gradle"
