@@ -38,7 +38,7 @@
 ###2.在使用的module 中<br>
 
 	dependencies {
-		implementation 'com.github.lwl49:FileDownload:xxx'  xxx 具体版本号<br>
+		implementation 'com.github.lwl49:FileDownload:1.0.7'  1.0.7 具体版本号<br>
 	}
 
 #### 使用说明
