@@ -49,29 +49,35 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        findViewById(R.id.main).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.tvGlideDownload).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-//                DownloadText.download(getApplicationContext());
-//                inspectUpdate(ins, true, false, new UpdateAppUtils.LoadingInterface() {
-//                    @Override
-//                    public void startLoading() {
-//
-//                    }
-//
-//                    @Override
-//                    public void success(UpdateChecker.UpdateInfo updateInfo) {
-//
-//                    }
-//
-//                    @Override
-//                    public void error(String message) {
-//
-//                    }
-//                });
-
+                // 使用glide 保存图片
                 SpepcDownloadUtil.saveImgFromGlide(ins,"","img_"+System.currentTimeMillis()+".jpg");
+            }
+        });
+
+        findViewById(R.id.tvUpgrade).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //使用蒲公英更新app
+                inspectUpdate(ins, true, false, new UpdateAppUtils.LoadingInterface() {
+                    @Override
+                    public void startLoading() {
+
+                    }
+
+                    @Override
+                    public void success(UpdateChecker.UpdateInfo updateInfo) {
+
+                    }
+
+                    @Override
+                    public void error(String message) {
+
+                    }
+                });
             }
         });
 

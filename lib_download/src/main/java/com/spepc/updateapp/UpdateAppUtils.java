@@ -28,9 +28,9 @@ public class UpdateAppUtils {
      * CommonLogUtils.e("xxx - checkSoftModel = onFail = "+s);
      * 蒲公英升级  需要蒲公英SDK
      * @param paramBuild 参数  ;
-     *                   activity  必填
-     *                   apiKey  用户身份 api_key; 必填
-     *                   appKey  应用 app_key;必填
+     *                   activity   必填
+     *                   apiKey     必填  用户身份 api_key;
+     *                   appKey     必填  应用 app_key;
      *                   showToast 是否需要弹出新版提示;
      *                   useCostDialog 默认使用sdk内部弹窗;
      *                   loadingInterface 检查开始，结束，便于外部增加 加载框等操作

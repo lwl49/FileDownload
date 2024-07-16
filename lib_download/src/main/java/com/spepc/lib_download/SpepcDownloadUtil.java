@@ -270,7 +270,7 @@ public class SpepcDownloadUtil {
     /**
      * 使用glide 下载图片
      * @param url 下载地址
-     * @param fileName 保存的文件名称
+     * @param fileName 保存的文件名称 携带 后缀名
      */
     public static void saveImgFromGlide(Activity activity, String url,String fileName) {
 //        url = "http://192.168.1.33:9000/spepc-maintenance-dfw-test/2024/04/337bfddc870f466e849f9bb450273cd0.jpeg";
