@@ -76,6 +76,11 @@
 	        UpdateAppUtils.updateAPP(paramBuild);
 	    }
 
+3.直接使用glide 自带函数保存图片<br>
+@param url 下载地址<br>
+@param fileName 保存的文件名称 携带 后缀名<br>
 
+	SpepcDownloadUtil.saveImgFromGlide(Activity activity, String url,String fileName) 
+ 
 
 
