@@ -27,6 +27,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     TextView textView;
     MainActivity ins;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,10 +52,11 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.tvGlideDownload).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
+                String url = "http://192.168.1.33:9000/spepc-maintenance-dfw-test/2024/04/337bfddc870f466e849f9bb450273cd0.jpeg";
+//                String  url = "http://192.168.1.33:9000/spepc-maintenance-dfw-test/2023/10/5bf23fddb83744ca9d851444c47abf40.jpg";
                 // 使用glide 保存图片
-                SpepcDownloadUtil.saveImgFromGlide(ins,"","img_"+System.currentTimeMillis()+".jpg");
+                SpepcDownloadUtil.saveImgFromGlide(ins, url, "img_" + System.currentTimeMillis() + ".jpg");
             }
         });
 
@@ -83,16 +85,17 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
     /**
+     * 检查更新
      *
-     *   检查更新
-     *   @param activity 用于弹窗使用，权限使用
-     *   @param showToast 显示检查消息
-     *   @param useCostDialog 是否自定义升级弹窗
-     * */
-    public static void inspectUpdate(Activity activity, boolean showToast, boolean useCostDialog, UpdateAppUtils.LoadingInterface loadingInterface){
-        String apiKey = FileUtils.getFieldValue(activity.getPackageName()+".BuildConfig","PGYER_API_KEY");
-        String appKey = FileUtils.getFieldValue(activity.getPackageName()+".BuildConfig","PGYER_APP_KEY");
+     * @param activity      用于弹窗使用，权限使用
+     * @param showToast     显示检查消息
+     * @param useCostDialog 是否自定义升级弹窗
+     */
+    public static void inspectUpdate(Activity activity, boolean showToast, boolean useCostDialog, UpdateAppUtils.LoadingInterface loadingInterface) {
+        String apiKey = FileUtils.getFieldValue(activity.getPackageName() + ".BuildConfig", "PGYER_API_KEY");
+        String appKey = FileUtils.getFieldValue(activity.getPackageName() + ".BuildConfig", "PGYER_APP_KEY");
         UpdateParamBuild paramBuild = new UpdateParamBuild();
         paramBuild.activity = activity;
         paramBuild.apiKey = "406e6044fabebca774797c93a140795c";

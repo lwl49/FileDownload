@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
@@ -266,28 +267,85 @@ public class SpepcDownloadUtil {
 
         }
     }
-
+//new SimpleTarget<Bitmap>() {
+//        @Override
+//        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+//            // 这里你可以获取到Bitmap对象，并进行保存或其他处理
+//            // 例如保存图片到文件系统
+//            File file = new File(activity.getCacheDir(), fileName);
+//            FileOutputStream out = null;
+//            try {
+//                out = new FileOutputStream(file);
+//                resource.compress(Bitmap.CompressFormat.JPEG, 100, out);
+//                out.flush();
+//                out.close();
+//
+//                String filePath = MediaStoreInsertHelper.insertImage(activity, activity.getPackageName(), file);
+//                if(file.exists()){
+//                    file.delete();
+//                }
+//                activity.runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (StringUtils.isNotEmpty(filePath)) {
+//                            Toast.makeText(activity, "已保存图片到系统相册", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            Toast.makeText(activity, "保存失败", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//            } catch (Exception e) {
+////                            e.printStackTrace();
+//                activity.runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Toast.makeText(activity, "保存失败", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//
+//            }
+//        }
+//
+//        @Override
+//        public void onLoadFailed(@Nullable Drawable errorDrawable) {
+//            super.onLoadFailed(errorDrawable);
+//            activity.runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    Toast.makeText(activity, "保存失败", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        }
+//    }
     /**
      * 使用glide 下载图片
      * @param url 下载地址
      * @param fileName 保存的文件名称 携带 后缀名
      */
     public static void saveImgFromGlide(Activity activity, String url,String fileName) {
-//        url = "http://192.168.1.33:9000/spepc-maintenance-dfw-test/2024/04/337bfddc870f466e849f9bb450273cd0.jpeg";
-//        url = "http://192.168.1.33:9000/spepc-maintenance-dfw-test/2023/10/5bf23fddb83744ca9d851444c47abf40.jpg";
+        if(activity==null){
+            return;
+        }
+        if(StringUtils.isNullOrEmpty(url)){
+            Toast.makeText(activity,"文件下载地址不存在",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(StringUtils.isNullOrEmpty(fileName)){
+            Toast.makeText(activity,"文件名称为空",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Glide.with(activity)
                 .asBitmap() // 指定加载格式为Bitmap
                 .load(url) // 替换为你的图片URL或资源ID
-                .into(new SimpleTarget<Bitmap>() {
+                .into(new CustomTarget<Bitmap>() {
                     @Override
-                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        // 这里你可以获取到Bitmap对象，并进行保存或其他处理
-                        // 例如保存图片到文件系统
+                    public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
                         File file = new File(activity.getCacheDir(), fileName);
                         FileOutputStream out = null;
                         try {
                             out = new FileOutputStream(file);
-                            resource.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
                             out.flush();
                             out.close();
 
@@ -315,6 +373,11 @@ public class SpepcDownloadUtil {
                             });
 
                         }
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable drawable) {
+
                     }
 
                     @Override
