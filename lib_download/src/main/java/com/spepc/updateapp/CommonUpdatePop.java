@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -44,8 +45,8 @@ public class CommonUpdatePop extends CenterPopupView implements View.OnClickList
     protected void onCreate() {
         super.onCreate();
         mBinding = LibDownloadUpdatePopBinding.bind(getPopupImplView());
-        mBinding.tv1.setText(version);
-        mBinding.tv2.setText(content);
+        mBinding.tvVersion.setText(version);
+        mBinding.tvDescribe.setText(Html.fromHtml(content,Html.FROM_HTML_MODE_LEGACY));
         mBinding.btnLeft.setVisibility(isNeedForceUpdate ? View.GONE : View.VISIBLE);
 
 

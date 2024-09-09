@@ -24,7 +24,7 @@
             android:textSize="@dimen/lib_download_txt_h2"
             app:layout_constraintTop_toTopOf="parent" />
         <TextView
-            android:id="@+id/tv1"
+            android:id="@+id/tvVersion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -34,7 +34,7 @@
             android:textSize="@dimen/lib_download_txt_h3"
             app:layout_constraintTop_toBottomOf="@id/tv0" />
         <TextView
-            android:id="@+id/tv2"
+            android:id="@+id/tvDescribe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="60dp"
@@ -44,7 +44,7 @@
             tools:text="fdfdfdsfds fsdf sdf sdfdsdfdsfdsfdsfsd的范德萨发加快递费就的手机放得开了分接口的法定放假  "
             android:textColor="@color/lib_download_font_black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv1" />
+            app:layout_constraintTop_toBottomOf="@id/tvVersion" />
 
         <TextView
             android:id="@+id/tv3"
@@ -58,7 +58,7 @@
             android:layout_marginEnd="@dimen/lib_download_main_padding"
             android:textColor="@color/lib_download_font_gray"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv2" />
+            app:layout_constraintTop_toBottomOf="@id/tvDescribe" />
 
         <TextView
             android:id="@+id/btnRight"
@@ -72,7 +72,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv2" />
+            app:layout_constraintTop_toBottomOf="@id/tvDescribe" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
