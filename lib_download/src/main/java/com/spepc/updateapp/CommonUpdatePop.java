@@ -15,6 +15,7 @@ import com.lxj.xpopup.core.CenterPopupView;
 import com.spepc.libDownload.R;
 import com.spepc.libDownload.databinding.LibDownloadUpdatePopBinding;
 import com.spepc.lib_download.SpepcDownloadUtil;
+import com.spepc.lib_download.StringUtils;
 
 /**
  * @Author lwl
@@ -46,7 +47,9 @@ public class CommonUpdatePop extends CenterPopupView implements View.OnClickList
         super.onCreate();
         mBinding = LibDownloadUpdatePopBinding.bind(getPopupImplView());
         mBinding.tvVersion.setText(version);
-        mBinding.tvDescribe.setText(Html.fromHtml(content,Html.FROM_HTML_MODE_LEGACY));
+        if (StringUtils.isNotEmpty(content)) {
+            mBinding.tvDescribe.setText(Html.fromHtml(content, Html.FROM_HTML_MODE_LEGACY));
+        }
         mBinding.btnLeft.setVisibility(isNeedForceUpdate ? View.GONE : View.VISIBLE);
 
 
@@ -81,8 +84,8 @@ public class CommonUpdatePop extends CenterPopupView implements View.OnClickList
                 Log.d("PhoneUtils", "appName=" + appName);
                 String fileName = appName + version + ".apk";
                 SpepcDownloadUtil.getIns(getContext()).setFilePosition(3).downloadComplete(
-                        bean -> Toast.makeText(getContext(), "下载完成 ： " + bean.name, Toast.LENGTH_SHORT).show())
-                        .startDMDownLoad(url.replace("\\",""), fileName);
+                                bean -> Toast.makeText(getContext(), "下载完成 ： " + bean.name, Toast.LENGTH_SHORT).show())
+                        .startDMDownLoad(url.replace("\\", ""), fileName);
                 if (!isNeedForceUpdate) {
                     dismiss();
                 }
