@@ -77,8 +77,7 @@ public class CommonUpdatePop extends CenterPopupView implements View.OnClickList
 
                 PackageManager packageManager = getContext().getPackageManager();
                 // getPackageName()是你当前类的包名，0代表是获取版本信息
-                PackageInfo packInfo = packageManager.getPackageInfo(getContext().getPackageName(), 0);
-                String version = packInfo.versionName;
+                String version = this.version;
 
 
                 Log.d("PhoneUtils", "appName=" + appName);

@@ -2,6 +2,8 @@ package com.spepc.filedownload;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -34,6 +36,15 @@ public class MainActivity extends AppCompatActivity {
         ins = this;
         setContentView(R.layout.activity_main);
         textView = findViewById(R.id.tvProgress);
+        try {
+            PackageInfo packInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            TextView upgrade = findViewById(R.id.tvUpgrade);
+            upgrade.setText(upgrade.getText().toString()+" "+packInfo.versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+
         PermissionX.init(MainActivity.this)
                 .permissions(Manifest.permission_group.STORAGE)
 

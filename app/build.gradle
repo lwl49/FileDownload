@@ -7,15 +7,24 @@ android {
     namespace 'com.spepc.filedownload'
     compileSdk 31
 
+    signingConfigs {
+        as_key_store {
+            keyAlias 'spepc'
+            keyPassword 'GLspepc123'
+            storeFile file('D:/AndroidProject/keystore/spepc.jks')
+            storePassword 'GLspepc123'
+        }
+    }
+
     defaultConfig {
         applicationId "com.spepc.filedownload"
         minSdk 26
         targetSdk targetSdk
-        versionCode 1
-        versionName "1.1"
+        versionCode 3
+        versionName "1.0.2"
         flavorDimensions "channel"   // 渠道
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-//        signingConfig signingConfigs.as_key_store
+        signingConfig signingConfigs.as_key_store
 
         ndk {
             //选择要添加的对应 cpu 类型的 .so 库。

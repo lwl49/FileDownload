@@ -1,8 +1,11 @@
 package com.spepc.utils;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageInstaller;
 import android.content.pm.PackageManager;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -11,11 +14,17 @@ import android.util.Log;
 
 import androidx.core.content.FileProvider;
 
+import com.spepc.broadcast.InstallerBroadcast;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * @Author lwl
@@ -57,9 +66,11 @@ public class FileUtils {
 
     /**
      * 7.0以上安装 APK 需要 manifest 清单文件 支持 FileProvider
+     * 使用硬编码 provide.download.fileDownloadProvider  与宿主区分开，避免宿主已经声明了 ${applicationId}.fileProvider 产生冲突
      */
     public static void installApk(Context context, String apkPath) {
-        Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileProvider", new File(apkPath));
+        Uri apkUri = FileProvider.getUriForFile(context, "provide.download.fileDownloadProvider", new File(apkPath));
+//        Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileProvider", new File(apkPath));
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -67,9 +78,59 @@ public class FileUtils {
 
     }
     /**
-     *  反射获取配置文件某参数值，需要先设置 packetName
+     *
+     *  这是隐式安装，需要让用户打开安装未知来源，已经被弃用，需要反射，而且由于 google 保护机制，可能无效的，所以弃用
+     * @param apkPath 文件一定是可读的
      * */
-    public static String getFieldValue(String packetName,String key) {
+    public static void installApkByInstaller(Context context, String apkPath) {
+
+        if(!new File(apkPath).exists()){
+            ZLog.log(FileUtils.class,"文件不存在");
+            return;
+        }
+
+        //获取PackageInstaller的实例
+        PackageInstaller packageInstaller = context.getPackageManager().getPackageInstaller();
+        //创建一个安装会话（PackageInstaller.Session）
+        int sessionId = 0;
+        try {
+            sessionId = packageInstaller.createSession(new PackageInstaller.SessionParams(
+                    PackageInstaller.SessionParams.MODE_FULL_INSTALL));
+            PackageInstaller.Session session = packageInstaller.openSession(sessionId);
+
+            InputStream in = Files.newInputStream(Paths.get(apkPath));
+            OutputStream out = session.openWrite("package", 0, new File(apkPath).length());
+
+            byte[] buffer = new byte[65536];
+            int len;
+            while ((len = in.read(buffer)) != -1) {
+                out.write(buffer, 0, len);
+            }
+
+            session.fsync(out);
+            in.close();
+            out.close();
+            statusReceiver = PendingIntent.getBroadcast(
+                    context,
+                    sessionId,
+                    new Intent(context, InstallerBroadcast.class),
+                    PendingIntent.FLAG_UPDATE_CURRENT
+            );
+
+            session.commit(statusReceiver.getIntentSender());
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    static PendingIntent statusReceiver;
+
+    /**
+     * 反射获取配置文件某参数值，需要先设置 packetName
+     */
+    public static String getFieldValue(String packetName, String key) {
 
         try {
             Class<?> cls = Class.forName(packetName);
@@ -91,7 +152,7 @@ public class FileUtils {
             PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
             return pi.versionCode;
         } catch (Exception e) {
-            ZLog.log(FileUtils.class,TAG,"VersionInfo Exception" + e);
+            ZLog.log(FileUtils.class, TAG, "VersionInfo Exception" + e);
         }
         return 0;
     }
