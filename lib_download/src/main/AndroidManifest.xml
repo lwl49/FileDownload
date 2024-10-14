@@ -11,7 +11,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         >
         <provider android:name="com.spepc.utils.MyFileProvide"
-            android:authorities="provide.download.fileDownloadProvider"
+            android:authorities="${applicationId}.provide.download.fileDownloadProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
