@@ -69,7 +69,7 @@ public class FileUtils {
      * 使用硬编码 provide.download.fileDownloadProvider  与宿主区分开，避免宿主已经声明了 ${applicationId}.fileProvider 产生冲突
      */
     public static void installApk(Context context, String apkPath) {
-        Uri apkUri = FileProvider.getUriForFile(context, "provide.download.fileDownloadProvider", new File(apkPath));
+        Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName()+".provide.download.fileDownloadProvider", new File(apkPath));
 //        Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileProvider", new File(apkPath));
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
