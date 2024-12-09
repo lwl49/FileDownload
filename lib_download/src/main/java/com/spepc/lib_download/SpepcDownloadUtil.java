@@ -268,56 +268,7 @@ public class SpepcDownloadUtil {
 
         }
     }
-//new SimpleTarget<Bitmap>() {
-//        @Override
-//        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-//            // 这里你可以获取到Bitmap对象，并进行保存或其他处理
-//            // 例如保存图片到文件系统
-//            File file = new File(activity.getCacheDir(), fileName);
-//            FileOutputStream out = null;
-//            try {
-//                out = new FileOutputStream(file);
-//                resource.compress(Bitmap.CompressFormat.JPEG, 100, out);
-//                out.flush();
-//                out.close();
-//
-//                String filePath = MediaStoreInsertHelper.insertImage(activity, activity.getPackageName(), file);
-//                if(file.exists()){
-//                    file.delete();
-//                }
-//                activity.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (StringUtils.isNotEmpty(filePath)) {
-//                            Toast.makeText(activity, "已保存图片到系统相册", Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            Toast.makeText(activity, "保存失败", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-//            } catch (Exception e) {
-////                            e.printStackTrace();
-//                activity.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Toast.makeText(activity, "保存失败", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-//            }
-//        }
-//
-//        @Override
-//        public void onLoadFailed(@Nullable Drawable errorDrawable) {
-//            super.onLoadFailed(errorDrawable);
-//            activity.runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Toast.makeText(activity, "保存失败", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//        }
-//    }
+
     /**
      * 使用glide 下载图片
      * @param url 下载地址

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.lxj.xpopup.XPopup;
+import com.spepc.lib_download.MyPreferencesUtil;
 import com.spepc.lib_download.StringUtils;
 import com.spepc.utils.FileUtils;
 import com.spepc.utils.ZLog;
@@ -27,6 +28,7 @@ public class UpdateAppUtils {
      * CommonLogUtils.e("xxx - checkSoftModel = "+checkSoftModel);
      * CommonLogUtils.e("xxx - checkSoftModel = onFail = "+s);
      * 蒲公英升级  需要蒲公英SDK
+     *
      * @param paramBuild 参数  ;
      *                   activity   必填
      *                   apiKey     必填  用户身份 api_key;
@@ -36,28 +38,28 @@ public class UpdateAppUtils {
      *                   loadingInterface 检查开始，结束，便于外部增加 加载框等操作
      */
     public static void updateAPP(UpdateParamBuild paramBuild) {
-        if(paramBuild==null){
+        if (paramBuild == null) {
             return;
         }
-        if(paramBuild.activity==null){
+        if (paramBuild.activity == null) {
             return;
         }
-        if(StringUtils.isNullOrEmpty(paramBuild.apiKey)){
-            Toast.makeText(paramBuild.activity,"缺少apiKey",Toast.LENGTH_SHORT).show();
+        if (StringUtils.isNullOrEmpty(paramBuild.apiKey)) {
+            Toast.makeText(paramBuild.activity, "缺少apiKey", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(StringUtils.isNullOrEmpty(paramBuild.appKey)){
-            Toast.makeText(paramBuild.activity,"缺少appKey",Toast.LENGTH_SHORT).show();
+        if (StringUtils.isNullOrEmpty(paramBuild.appKey)) {
+            Toast.makeText(paramBuild.activity, "缺少appKey", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(paramBuild.loadingInterface!=null){
+        if (paramBuild.loadingInterface != null) {
             paramBuild.loadingInterface.startLoading();
         }
         new UpdateChecker(paramBuild.apiKey).check(paramBuild.appKey, "", null, ""
                 , new UpdateChecker.Callback() {
                     @Override
                     public void result(UpdateChecker.UpdateInfo updateInfo) {
-                        if(paramBuild.loadingInterface!=null){
+                        if (paramBuild.loadingInterface != null) {
                             paramBuild.activity.runOnUiThread(new Runnable() {
                                 public void run() {
                                     paramBuild.loadingInterface.success(updateInfo);
@@ -67,7 +69,19 @@ public class UpdateAppUtils {
                         ZLog.log(UpdateAppUtils.class, TAG, "updateInfo = " + updateInfo.toString());
                         int code = FileUtils.getAppVersionCode(paramBuild.activity);
                         if (updateInfo.buildVersionNo != null && code < Integer.parseInt(updateInfo.buildVersionNo)) {
-                            if(paramBuild.useCostDialog){
+                            if (paramBuild.useCostDialog) {
+                                return;
+                            }
+                            // 用强制版本号判断是否需要强制更新,因为 updateInfo.needForceUpdate 总是false
+                            boolean needForceUpdate = StringUtils.isNotEmpty(updateInfo.forceUpdateVersion);
+
+
+
+                            String ignoreVersion = MyPreferencesUtil.getInstance(paramBuild.activity).loadString(MyPreferencesUtil.APK_VERSION_CODE, "");
+                            if (!needForceUpdate && ignoreVersion != null && !ignoreVersion.isEmpty() && ignoreVersion.equals(updateInfo.buildVersionNo)) {
+                                //有忽略版本
+                                Log.e("xxxxxx ","ignoreVersion = "+ignoreVersion);
+                                Log.e("xxxxxx ","updateInfo.buildVersionNo = "+updateInfo.buildVersionNo);
                                 return;
                             }
                             new XPopup.Builder(paramBuild.activity)
@@ -75,7 +89,13 @@ public class UpdateAppUtils {
                                     .dismissOnBackPressed(false)
                                     .dismissOnTouchOutside(false)
                                     .isDestroyOnDismiss(true) //对于只使用一次的弹窗，推荐设置这个
-                                    .asCustom(new CommonUpdatePop(paramBuild.activity, StringUtils.isNotEmpty(updateInfo.forceUpdateVersion), updateInfo.buildUpdateDescription, updateInfo.buildVersion, updateInfo.downloadURL))
+                                    .asCustom(new CommonUpdatePop(
+                                            paramBuild.activity,
+                                            needForceUpdate,
+                                            updateInfo.buildUpdateDescription,
+                                            updateInfo.buildVersion,
+                                            updateInfo.downloadURL,
+                                            updateInfo.buildVersionNo))
                                     .show();
                         } else {
                             if (paramBuild.showToast) {
@@ -96,7 +116,7 @@ public class UpdateAppUtils {
                                 @Override
                                 public void run() {
                                     Toast.makeText(paramBuild.activity, message, Toast.LENGTH_SHORT).show();
-                                    if(paramBuild.loadingInterface!=null){
+                                    if (paramBuild.loadingInterface != null) {
                                         paramBuild.loadingInterface.error(message);
                                     }
                                 }
@@ -134,9 +154,11 @@ public class UpdateAppUtils {
     }
 
 
-    public interface LoadingInterface{
+    public interface LoadingInterface {
         void startLoading();
+
         void success(UpdateChecker.UpdateInfo updateInfo);
+
         void error(String message);
     }
 }

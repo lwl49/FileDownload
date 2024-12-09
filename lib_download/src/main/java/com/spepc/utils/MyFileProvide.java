@@ -4,7 +4,7 @@ import androidx.core.content.FileProvider;
 
 /**
  * @Author lwl
- * 日期    2024/9/29
+ * 日期
  * 目的
  */
 public class MyFileProvide extends FileProvider {
