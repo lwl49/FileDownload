@@ -2,13 +2,16 @@ package com.spepc.filedownload;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.permissionx.guolindev.PermissionX;
@@ -71,6 +74,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.tvOpenFile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SpepcDownloadUtil.getIns(ins).setPackName("文件下载工具").noFileToDownload2("","1233.docx",100,ins);
+            }
+        });
+
         findViewById(R.id.tvUpgrade).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,5 +126,18 @@ public class MainActivity extends AppCompatActivity {
         paramBuild.useCostDialog = useCostDialog;
         paramBuild.loadingInterface = loadingInterface;
         UpdateAppUtils.updateAPP(paramBuild);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == 100) {
+                Uri uri = data.getData();
+                FileUtils.openOfficeFile(ins,uri);
+                // 将输入流写入私有目录
+            }
+
+        }
     }
 }

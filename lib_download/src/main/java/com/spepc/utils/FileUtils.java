@@ -1,16 +1,24 @@
 package com.spepc.utils;
 
+import android.app.Activity;
 import android.app.PendingIntent;
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageInstaller;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
+import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 
@@ -69,7 +77,7 @@ public class FileUtils {
      * 使用硬编码 provide.download.fileDownloadProvider  与宿主区分开，避免宿主已经声明了 ${applicationId}.fileProvider 产生冲突
      */
     public static void installApk(Context context, String apkPath) {
-        Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName()+".provide.download.fileDownloadProvider", new File(apkPath));
+        Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provide.download.fileDownloadProvider", new File(apkPath));
 //        Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileProvider", new File(apkPath));
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
@@ -77,15 +85,16 @@ public class FileUtils {
         context.startActivity(intent);
 
     }
+
     /**
+     * 这是隐式安装，需要让用户打开安装未知来源，已经被弃用，需要反射，而且由于 google 保护机制，可能无效的，所以弃用
      *
-     *  这是隐式安装，需要让用户打开安装未知来源，已经被弃用，需要反射，而且由于 google 保护机制，可能无效的，所以弃用
      * @param apkPath 文件一定是可读的
-     * */
+     */
     public static void installApkByInstaller(Context context, String apkPath) {
 
-        if(!new File(apkPath).exists()){
-            ZLog.log(FileUtils.class,"文件不存在");
+        if (!new File(apkPath).exists()) {
+            ZLog.log(FileUtils.class, "文件不存在");
             return;
         }
 
@@ -155,6 +164,85 @@ public class FileUtils {
             ZLog.log(FileUtils.class, TAG, "VersionInfo Exception" + e);
         }
         return 0;
+    }
+
+    /**
+     * 如果未被 MediaStore 存入，需要手动索引到 MediaStore
+     */
+    public static Uri indexFileToMediaStore(Context context, String filePath) {
+        try {
+            File file = new File(filePath);
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.Files.FileColumns.DATA, file.getAbsolutePath());
+            values.put(MediaStore.Files.FileColumns.TITLE, file.getName());
+            values.put(MediaStore.Files.FileColumns.DISPLAY_NAME, file.getName());
+            values.put(MediaStore.Files.FileColumns.MIME_TYPE, getMimeType(filePath));
+            values.put(MediaStore.Files.FileColumns.SIZE, file.length());
+            Uri uri = context.getContentResolver().insert(MediaStore.Files.getContentUri("external"), values);
+            return uri;
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
+    public static String getMimeType(String filePath) {
+        String extension = filePath.substring(filePath.lastIndexOf(".") + 1);
+        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+    }
+
+    /**
+     * 使用saf 框架选中某个需要打开的文件
+     */
+    public static void openSAF(Activity activity, int REQUEST_CODE_PICK_FILE) {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("*/*");
+        activity.startActivityForResult(intent, REQUEST_CODE_PICK_FILE);
+    }
+
+    public static Uri getUriFromFilePath(Context context, String filePath) {
+        try {
+            File file = new File(filePath);
+            String[] projection = {MediaStore.Files.FileColumns._ID};
+            String selection = MediaStore.Files.FileColumns.DATA + "=?";
+            String[] selectionArgs = new String[]{file.getAbsolutePath()};
+
+            Uri uri = MediaStore.Files.getContentUri("external");
+            ContentResolver resolver = context.getContentResolver();
+            Cursor cursor = resolver.query(uri, projection, selection, selectionArgs, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                int idIndex = cursor.getColumnIndex(MediaStore.Files.FileColumns._ID);
+                long fileId = cursor.getLong(idIndex);
+                cursor.close();
+                return ContentUris.withAppendedId(uri, fileId);
+            }
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
+
+    /**
+     * @param uri 通过saf选中的uri，或者 别的方式获取的uri
+     */
+    public static void openOfficeFile(Context context, Uri uri) {
+        if (uri != null) {
+            String mimeType = context.getContentResolver().getType(uri);
+            Log.d("spdownload-utils", "xxx-- mimeType = " + mimeType);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(uri, mimeType == null ? "*/*" : mimeType);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            // 创建选择器
+            Intent chooser = Intent.createChooser(intent, "文件打开");
+            // 检查是否有应用可以处理该 Intent
+            context.startActivity(chooser);
+        } else {
+            Toast.makeText(context, "uri 无效,请去文件管理器查找文件", Toast.LENGTH_LONG).show();
+        }
     }
 
 }

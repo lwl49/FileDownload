@@ -6,6 +6,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -203,13 +205,58 @@ public class SpepcDownloadUtil {
 
     }
 
-    private boolean checkWps() {
-        Intent intent = context.getPackageManager().getLaunchIntentForPackage("cn.wps.moffice_eng");//WPS个人版的包名
-        if (intent == null) {
-            return false;
+    /**
+     * 使用saf框架，给用户选择想打开的文件
+     * 弹出系统提示框，供用户选择打开方式
+     */
+    public void noFileToDownload2(String url, String fileName, int requestCode, Activity activity) {
+        String filePath = downloadDir.getAbsolutePath() + "/" + (packName.isEmpty() ? context.getPackageName() : packName) + "/" + fileName;
+
+        if (new File(filePath).exists()) {
+            FileUtils.openSAF(activity, requestCode);
         } else {
-            return true;
+            if (StringUtils.isNotEmpty(url)) {
+                startDMDownLoad(url, fileName);
+            }
         }
+    }
+
+
+    String[] wpsPackageNames = {
+            "cn.wps.moffice_eng", // 国际版
+            "cn.wps.xiaomi.lite", // 小米定制版
+            "cn.wps.moffice",     // 国内版
+            // 添加其他可能的包名
+    };
+
+    private boolean checkWps() {
+        for (String ss : wpsPackageNames) {
+
+            Intent intent = context.getPackageManager().getLaunchIntentForPackage(ss);//WPS个人版的包名
+            if (intent != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private String checkWpsForPac() {
+        List<String> paList = new ArrayList<>();
+        PackageManager packageManager = context.getPackageManager();
+        List<ApplicationInfo> installedApps = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
+        // 遍历应用列表，过滤系统应用
+        for (ApplicationInfo appInfo : installedApps) {
+//            if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) { // 非系统应用
+//            }
+            paList.add(appInfo.packageName);
+            Log.e("xxxx---", "已安装：" + appInfo.packageName);
+        }
+        for (String ss : wpsPackageNames) {
+            if (paList.contains(ss)) {
+                return ss;
+            }
+        }
+        return "";
     }
 
     class MyHandler extends Handler {
@@ -271,19 +318,20 @@ public class SpepcDownloadUtil {
 
     /**
      * 使用glide 下载图片
-     * @param url 下载地址
+     *
+     * @param url      下载地址
      * @param fileName 保存的文件名称 携带 后缀名
      */
-    public static void saveImgFromGlide(Activity activity, String url,String fileName) {
-        if(activity==null){
+    public static void saveImgFromGlide(Activity activity, String url, String fileName) {
+        if (activity == null) {
             return;
         }
-        if(StringUtils.isNullOrEmpty(url)){
-            Toast.makeText(activity,"文件下载地址不存在",Toast.LENGTH_SHORT).show();
+        if (StringUtils.isNullOrEmpty(url)) {
+            Toast.makeText(activity, "文件下载地址不存在", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(StringUtils.isNullOrEmpty(fileName)){
-            Toast.makeText(activity,"文件名称为空",Toast.LENGTH_SHORT).show();
+        if (StringUtils.isNullOrEmpty(fileName)) {
+            Toast.makeText(activity, "文件名称为空", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -302,7 +350,7 @@ public class SpepcDownloadUtil {
                             out.close();
 
                             String filePath = MediaStoreInsertHelper.insertImage(activity, activity.getPackageName(), file);
-                            if(file.exists()){
+                            if (file.exists()) {
                                 file.delete();
                             }
                             activity.runOnUiThread(new Runnable() {
